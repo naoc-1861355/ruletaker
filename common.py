@@ -197,7 +197,7 @@ class Rule:
         lf = ""
         if theorem_prover.lower() == "problog":
             prob = f"{self.probability}::"
-            antecedant_lf = ", ".join(
+            antecedant_lf = "; ".join(
                 [lhs_fact.logical_form(theorem_prover, False) for lhs_fact in self.lhs]
             )
             consequent_lf = self.rhs.logical_form(theorem_prover, False)
@@ -213,7 +213,7 @@ class Rule:
         If <LHS> then <RHS>.
         """
         lhs_nl_statements = [f.nl(standalone=False) for f in self.lhs]
-        lhs_nl = " and ".join(lhs_nl_statements)
+        lhs_nl = " or ".join(lhs_nl_statements)
         rhs_nl = self.rhs.nl(standalone=False)
         if self.probability != float(0):
             nl = f"If {lhs_nl} then {rhs_nl}."
